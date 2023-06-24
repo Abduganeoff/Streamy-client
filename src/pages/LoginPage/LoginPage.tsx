@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useCreateAccount } from "../../services/useAuth";
 // mui components
 import { Box } from "@mui/material";
 // custom components
@@ -13,7 +14,7 @@ import {
 const INITIAL_FORM: Form = {
   email: "",
   password: "",
-  confirmPassword: "",
+  passwordConfirmation: "",
 };
 
 const LoginPage = () => {
@@ -22,7 +23,11 @@ const LoginPage = () => {
   const onHandleForm = ({ inputName, inputVal }: handleFormTypes) => {
     setForm((prev) => ({ ...prev, [inputName]: inputVal }));
   };
+  const { mutate: createAccount } = useCreateAccount();
 
+  const handleCreateAccount = () => {
+    createAccount(form);
+  };
   return (
     <Box
       display="flex"
@@ -41,6 +46,7 @@ const LoginPage = () => {
       <AuthForm
         form={form}
         onHandleForm={onHandleForm}
+        handleCreateAccount={handleCreateAccount}
       />
     </Box>
   );

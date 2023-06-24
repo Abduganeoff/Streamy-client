@@ -1,7 +1,7 @@
 export type Form = {
   email: string;
   password: string;
-  confirmPassword?: string;
+  passwordConfirmation?: string;
 };
 export type handleFormTypes = {
   inputName: string;
@@ -10,4 +10,5 @@ export type handleFormTypes = {
 export interface AuthFormProps {
   form: Form;
   onHandleForm: (args: handleFormTypes) => void;
+  handleCreateAccount: () => void;
 }

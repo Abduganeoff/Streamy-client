@@ -10,17 +10,17 @@ export const useValidate = (form: Form) => {
   const [errorMessage, setErrorMessage] = useState({
     email: "",
     password: "",
-    confirmPassword: "",
+    passwordConfirmation: "",
   });
 
-  const { email, password, confirmPassword } = form;
+  const { email, password, passwordConfirmation } = form;
 
   useEffect(() => {
     const validateForm = () => {
       let updatedErrorMessage = {
         email: "",
         password: "",
-        confirmPassword: "",
+        passwordConfirmation: "",
       };
 
       if (email !== "" && !isValidEmail(email)) {
@@ -38,13 +38,13 @@ export const useValidate = (form: Form) => {
       }
 
       if (
-        confirmPassword !== "" &&
-        confirmPassword &&
-        !isEqualPassword(password, confirmPassword)
+        passwordConfirmation !== "" &&
+        passwordConfirmation &&
+        !isEqualPassword(password, passwordConfirmation)
       ) {
         updatedErrorMessage = {
           ...updatedErrorMessage,
-          confirmPassword: "Password must match",
+          passwordConfirmation: "Password must match",
         };
       }
 
@@ -52,7 +52,7 @@ export const useValidate = (form: Form) => {
     };
 
     validateForm();
-  }, [email, password, confirmPassword]);
+  }, [email, password, passwordConfirmation]);
 
   const isAnyError = Object.values(errorMessage).some(
     (message) => message !== ""

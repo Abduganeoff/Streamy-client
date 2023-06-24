@@ -11,7 +11,7 @@ export const validateCharactersLimit = (name: string) => {
   return name.trim().length > MAX_LIMIT || name.trim().length < MIN_LIMIT;
 };
 
-export const isEqualPassword = (password: string, confirmPassword: string) =>
-  password === confirmPassword;
+export const isEqualPassword = (password: string, passwordConfirmation: string) =>
+  password === passwordConfirmation;
 
 export const clearValidation = { isValid: true, message: "" };

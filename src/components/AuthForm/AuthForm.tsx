@@ -8,15 +8,28 @@ import { AuthFormProps } from "./AuthForm.models";
 import { useValidate } from "../../hooks/useValidate";
 import { on } from "events";
 
-const AuthForm: FC<AuthFormProps> = ({ form, onHandleForm }) => {
+const AuthForm: FC<AuthFormProps> = ({
+  form,
+  onHandleForm,
+  handleCreateAccount,
+}) => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
-  const { email, password, confirmPassword } = form;
+  const { email, password, passwordConfirmation } = form;
   const { errorMessage, isAnyError } = useValidate(form);
 
   const handleChanges = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     onHandleForm({ inputName: e.target.name, inputVal: e.target.value });
+  };
+
+  const handleSubmitButton = () => {
+    if (isSignUp) {
+      // create account
+      handleCreateAccount();
+    } else {
+      // login
+    }
   };
 
   return (
@@ -41,14 +54,15 @@ const AuthForm: FC<AuthFormProps> = ({ form, onHandleForm }) => {
       />
       {isSignUp && (
         <InputText
-          name="confirmPassword"
+          name="passwordConfirmation"
           label="Confirm password"
-          value={confirmPassword}
+          value={passwordConfirmation}
           onChange={handleChanges}
-          helperText={errorMessage.confirmPassword}
+          helperText={errorMessage.passwordConfirmation}
         />
       )}
       <Button
+        onClick={handleSubmitButton}
         disabled={isAnyError}
         variant="contained"
         fullWidth
