@@ -10,7 +10,6 @@ const StreamPage = () => {
     api.get("/streams").then((response) => response.data);
 
   const { data } = useQuery({ queryKey: ["streams"], queryFn: fetchStreams });
-  console.log(data);
   return (
     <div>
       {data?.map((d: string) => (

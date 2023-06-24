@@ -10,14 +10,15 @@ import {
   handleFormTypes,
 } from "../../components/AuthForm/AuthForm.models";
 
-const LoginPage = () => {
-  const [form, setForm] = useState<Form>({
-    username: "",
-    password: "",
-    confirmPassword: "",
-  });
+const INITIAL_FORM: Form = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
-  console.log(form);
+const LoginPage = () => {
+  const [form, setForm] = useState<Form>(INITIAL_FORM);
+
   const onHandleForm = ({ inputName, inputVal }: handleFormTypes) => {
     setForm((prev) => ({ ...prev, [inputName]: inputVal }));
   };
@@ -29,7 +30,7 @@ const LoginPage = () => {
       alignItems="center"
       sx={{
         position: "relative",
-        backgroundImage: "url(assets/img01.png)",
+        backgroundImage: "url(assets/img04.jpeg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -37,7 +38,10 @@ const LoginPage = () => {
       }}
     >
       <BackgroundDimmer />
-      <AuthForm form={form} onHandleForm={onHandleForm} />
+      <AuthForm
+        form={form}
+        onHandleForm={onHandleForm}
+      />
     </Box>
   );
 };
