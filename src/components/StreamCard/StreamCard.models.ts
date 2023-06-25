@@ -3,4 +3,5 @@ export interface StreamCardProps {
   shortDescription: string;
   upVotes: number;
   downVotes: number;
+  streamId: string;
 }

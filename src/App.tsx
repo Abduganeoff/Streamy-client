@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 // custom components
 import StreamAppBar from "./components/AppBar/StreamAppBar";
+import CircularProgress from "./components/CircularProgress/CircularProgress";
 // Route components
 const StreamPage = lazy(() => import("./pages/StreamPage/StreamPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
@@ -18,7 +19,7 @@ function App() {
   return (
     <>
       {pathname !== "/403" && <StreamAppBar />}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CircularProgress />}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/streams" element={<StreamPage />} />

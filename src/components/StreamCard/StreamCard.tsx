@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 // material components
 import {
   Badge,
@@ -16,14 +17,34 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 // models
 import { StreamCardProps } from "./StreamCard.models";
+// services
+import { updateStreamVotesFn } from "../../services/streamService";
 
 const StreamCard: FC<StreamCardProps> = ({
   title,
   shortDescription,
   upVotes,
   downVotes,
+  streamId,
 }) => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(updateStreamVotesFn, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["streams"]);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
+  const handleUpVote = () => {
+    mutate({ streamId, upVotes: 1 });
+  };
+  const handleDownVote = () => {
+    mutate({ streamId, downVotes: 1 });
+  };
 
   return (
     <Card
@@ -37,7 +58,7 @@ const StreamCard: FC<StreamCardProps> = ({
       }}
       raised
     >
-      <CardActionArea onClick={() => navigate(`/streams/${2}`)}>
+      <CardActionArea onClick={() => navigate(`/streams/${streamId}`)}>
         <CardMedia sx={{ height: 220 }} image="/assets/streamy.jpeg" />
         <CardContent>
           <Typography
@@ -63,12 +84,12 @@ const StreamCard: FC<StreamCardProps> = ({
           justifyContent: "flex-end",
         }}
       >
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={handleUpVote}>
           <Badge color="secondary" badgeContent={upVotes} max={99}>
             <ThumbUpIcon />
           </Badge>
         </IconButton>
-        <IconButton color="primary">
+        <IconButton color="primary" onClick={handleDownVote}>
           <Badge color="secondary" badgeContent={downVotes} max={99}>
             <ThumbDownIcon />
           </Badge>

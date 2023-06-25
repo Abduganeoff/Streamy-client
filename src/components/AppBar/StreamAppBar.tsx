@@ -49,7 +49,7 @@ const StreamAppBar = () => {
   };
 
   return (
-    <AppBar sx={{ backgroundColor: "rgba(30, 30, 30, 0.9)" }}>
+    <AppBar position="static" sx={{ backgroundColor: "rgba(30, 30, 30, 0.9)" }}>
       <Container maxWidth="xl">
         <Toolbar
           sx={{

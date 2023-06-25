@@ -21,7 +21,7 @@ const StreamPage = () => {
   }, []);
 
   const { data } = useQuery({ queryKey: ["streams"], queryFn: fetchStreamsFn });
-  console.log("data: ", data);
+
   return (
     <Box
       display={"flex"}
@@ -36,7 +36,6 @@ const StreamPage = () => {
         minHeight: "100vh",
         backgroundAttachment: "fixed",
         padding: 4,
-        mt: 8,
       }}
     >
       <BackgroundDimmer />
@@ -57,6 +56,7 @@ const StreamPage = () => {
             shortDescription={stream.summary}
             upVotes={stream.upVotes}
             downVotes={stream.downVotes}
+            streamId={stream.id}
           />
         ))}
       </Grid>

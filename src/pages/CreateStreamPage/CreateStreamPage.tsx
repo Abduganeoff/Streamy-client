@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 // material components
@@ -17,6 +17,8 @@ import InputText from "../../components/InputText/InputText";
 import BackgroundDimmer from "../../components/BackgroundDimmer/BackgroundDimmer";
 // services
 import { createStreamFn } from "../../services/streamService";
+// hooks
+import { useValidateDetailForm } from "../../hooks/useValidateDetailForm";
 
 const OPTIONS = ["Twitch", "YouTube", "TikTok", "Kick", "Rumble"];
 const CreateStreamPage = () => {
@@ -29,7 +31,25 @@ const CreateStreamPage = () => {
     description: "",
   });
 
+  const { isAnyError, errorMessage } = useValidateDetailForm(formData);
   const [open, setOpen] = useState(false);
+  const [isEmptyField, setIsEmptyField] = useState<boolean>(true);
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      // Redirect to login page if userId doesn't exist
+      navigate("/403");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (formData.title && formData.summary && formData.description) {
+      setIsEmptyField(false);
+    } else {
+      setIsEmptyField(true);
+    }
+  }, [formData]);
 
   const { mutate } = useMutation(createStreamFn, {
     onSuccess: (data) => {
@@ -62,7 +82,7 @@ const CreateStreamPage = () => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
-  console.log(formData);
+
   return (
     <Box
       display="flex"
@@ -91,6 +111,7 @@ const CreateStreamPage = () => {
           placeholder="Stream Title"
           value={formData.title}
           onChange={handleInputChange}
+          helperText={errorMessage.title}
         />
         <FormControl
           sx={{
@@ -130,6 +151,7 @@ const CreateStreamPage = () => {
           placeholder="Summary"
           value={formData.summary}
           onChange={handleInputChange}
+          helperText={errorMessage.summary}
         />
         <InputText
           label="Description"
@@ -139,13 +161,21 @@ const CreateStreamPage = () => {
           maxRows={4}
           value={formData.description}
           onChange={handleInputChange}
+          helperText={errorMessage.description}
         />
         <Button
-          sx={{ borderRadius: "50px" }}
+          sx={{
+            borderRadius: "50px",
+            backgroundColor:
+              isAnyError || isEmptyField
+                ? "rgba(250, 250, 250, 0.5) !important"
+                : undefined,
+          }}
           variant="contained"
           fullWidth
           size="large"
           color="secondary"
+          disabled={isAnyError || isEmptyField}
           onClick={handelCreateStream}
         >
           Create Stream

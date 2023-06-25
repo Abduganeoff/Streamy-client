@@ -7,11 +7,17 @@ export const isValidEmail = (email: string) => {
   return re.test(String(email).toLowerCase());
 };
 
-export const validateCharactersLimit = (name: string) => {
-  return name.trim().length > MAX_LIMIT || name.trim().length < MIN_LIMIT;
+export const validateCharactersLimit = (
+  name: string,
+  min = MIN_LIMIT,
+  max = MAX_LIMIT
+) => {
+  return name.trim().length > max || name.trim().length < min;
 };
 
-export const isEqualPassword = (password: string, passwordConfirmation: string) =>
-  password === passwordConfirmation;
+export const isEqualPassword = (
+  password: string,
+  passwordConfirmation: string
+) => password === passwordConfirmation;
 
 export const clearValidation = { isValid: true, message: "" };

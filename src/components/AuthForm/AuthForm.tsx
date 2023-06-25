@@ -5,7 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import InputText from "../InputText/InputText";
 // models
 import { AuthFormProps } from "./AuthForm.models";
-import { useValidate } from "../../hooks/useValidate";
+import { useValidate } from "../../hooks/useValidateSigninForm";
 import { on } from "events";
 
 const AuthForm: FC<AuthFormProps> = ({
