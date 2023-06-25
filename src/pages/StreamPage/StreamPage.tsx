@@ -1,16 +1,13 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 // custom components
 import StreamCard from "../../components/StreamCard/StreamCard";
 import BackgroundDimmer from "../../components/BackgroundDimmer/BackgroundDimmer";
 // material components
 import { Box, Grid } from "@mui/material";
-
-const api = axios.create({
-  baseURL: "http://localhost:5000",
-});
+// services
+import { fetchStreamsFn } from "../../services/streamService";
 
 const StreamPage = () => {
   const navigate = useNavigate();
@@ -23,11 +20,8 @@ const StreamPage = () => {
     }
   }, []);
 
-  // const fetchStreams = (): Promise<any> =>
-  //   api.get("/streams").then((response) => response.data);
-
-  // const { data } = useQuery({ queryKey: ["streams"], queryFn: fetchStreams });
-
+  const { data } = useQuery({ queryKey: ["streams"], queryFn: fetchStreamsFn });
+  console.log("data: ", data);
   return (
     <Box
       display={"flex"}
@@ -53,29 +47,18 @@ const StreamPage = () => {
         alignItems="center"
         columns={{ md: 3 }}
         rowGap={5}
-        columnGap={2}
+        columnGap={4}
         sx={{ zIndex: 1 }}
       >
-        <StreamCard
-          title="Stream"
-          shortDescription="This is my short description, if you like it, pleases"
-        />
-        <StreamCard
-          title="Stream"
-          shortDescription="This is my short description, if you like it, pleases"
-        />
-        <StreamCard
-          title="Stream"
-          shortDescription="This is my short description, if you like it, pleases"
-        />
-        <StreamCard
-          title="Stream"
-          shortDescription="This is my short description, if you like it, pleases"
-        />
-        <StreamCard
-          title="Stream"
-          shortDescription="This is my short description, if you like it, pleases"
-        />
+        {data?.map((stream: any) => (
+          <StreamCard
+            key={stream.id}
+            title={stream.title}
+            shortDescription={stream.summary}
+            upVotes={stream.upVotes}
+            downVotes={stream.downVotes}
+          />
+        ))}
       </Grid>
     </Box>
   );

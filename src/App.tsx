@@ -9,6 +9,9 @@ const NoAccessPage = lazy(() => import("./pages/NoAccessPage/NoAccessPage"));
 const CreateStreamPage = lazy(
   () => import("./pages/CreateStreamPage/CreateStreamPage")
 );
+const StreamDetailPage = lazy(
+  () => import("./pages/DetailsPage/StreamDetailPage")
+);
 
 function App() {
   const { pathname } = useLocation();
@@ -20,6 +23,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/streams" element={<StreamPage />} />
           <Route path="/streams/new" element={<CreateStreamPage />} />
+          <Route path="/streams/:id" element={<StreamDetailPage />} />
           <Route path="/403" element={<NoAccessPage />} />
         </Routes>
       </Suspense>

@@ -15,7 +15,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { logoutFn } from "../../services/useAuth";
+import { logoutFn } from "../../services/authService";
 
 const StreamAppBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

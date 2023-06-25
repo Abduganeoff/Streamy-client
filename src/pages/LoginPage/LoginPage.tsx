@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // service functions
-import { createAccountFn, loginFn } from "../../services/useAuth";
+import { createAccountFn, loginFn } from "../../services/authService";
 // mui components
 import { Box } from "@mui/material";
 // custom components

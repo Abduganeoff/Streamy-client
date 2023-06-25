@@ -20,8 +20,8 @@ import { StreamCardProps } from "./StreamCard.models";
 const StreamCard: FC<StreamCardProps> = ({
   title,
   shortDescription,
-  upVote = 20,
-  downVote = 2,
+  upVotes,
+  downVotes,
 }) => {
   const navigate = useNavigate();
 
@@ -64,12 +64,12 @@ const StreamCard: FC<StreamCardProps> = ({
         }}
       >
         <IconButton color="primary">
-          <Badge color="secondary" badgeContent={upVote} max={99}>
+          <Badge color="secondary" badgeContent={upVotes} max={99}>
             <ThumbUpIcon />
           </Badge>
         </IconButton>
         <IconButton color="primary">
-          <Badge color="secondary" badgeContent={downVote} max={99}>
+          <Badge color="secondary" badgeContent={downVotes} max={99}>
             <ThumbDownIcon />
           </Badge>
         </IconButton>

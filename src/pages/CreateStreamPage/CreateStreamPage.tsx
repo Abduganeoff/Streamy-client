@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+// material components
 import {
   Box,
   Button,
@@ -8,21 +12,33 @@ import {
   SelectChangeEvent,
   Typography,
 } from "@mui/material";
+// custom components
 import InputText from "../../components/InputText/InputText";
 import BackgroundDimmer from "../../components/BackgroundDimmer/BackgroundDimmer";
-import { useState } from "react";
+// services
+import { createStreamFn } from "../../services/streamService";
 
+const OPTIONS = ["Twitch", "YouTube", "TikTok", "Kick", "Rumble"];
 const CreateStreamPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
-    platform: "Twitch",
     title: "",
+    platform: "Twitch",
     summary: "",
     description: "",
   });
 
   const [open, setOpen] = useState(false);
 
-  const options = ["Twitch", "YouTube", "TikTok", "Kick", "Rumble"];
+  const { mutate } = useMutation(createStreamFn, {
+    onSuccess: (data) => {
+      navigate("/streams");
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
 
   const handleChange = (
     event: SelectChangeEvent<(typeof formData)["platform"]>
@@ -36,6 +52,10 @@ const CreateStreamPage = () => {
 
   const handleOpen = () => {
     setOpen(true);
+  };
+
+  const handelCreateStream = () => {
+    mutate(formData);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +117,7 @@ const CreateStreamPage = () => {
               },
             }}
           >
-            {options.map((option) => (
+            {OPTIONS.map((option) => (
               <MenuItem key={option} value={option}>
                 {option}
               </MenuItem>
@@ -126,6 +146,7 @@ const CreateStreamPage = () => {
           fullWidth
           size="large"
           color="secondary"
+          onClick={handelCreateStream}
         >
           Create Stream
         </Button>
