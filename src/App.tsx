@@ -6,6 +6,9 @@ import StreamAppBar from "./components/AppBar/StreamAppBar";
 const StreamPage = lazy(() => import("./pages/StreamPage/StreamPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const NoAccessPage = lazy(() => import("./pages/NoAccessPage/NoAccessPage"));
+const CreateStreamPage = lazy(
+  () => import("./pages/CreateStreamPage/CreateStreamPage")
+);
 
 function App() {
   const { pathname } = useLocation();
@@ -16,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/streams" element={<StreamPage />} />
+          <Route path="/streams/new" element={<CreateStreamPage />} />
           <Route path="/403" element={<NoAccessPage />} />
         </Routes>
       </Suspense>

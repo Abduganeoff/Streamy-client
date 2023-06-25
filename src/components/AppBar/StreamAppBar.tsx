@@ -43,8 +43,13 @@ const StreamAppBar = () => {
     setIsMenuOpen(false);
   };
 
+  const handleLogOut = () => {
+    logout();
+    handleMenuClose();
+  };
+
   return (
-    <AppBar position="static" sx={{ backgroundColor: "rgba(30, 30, 30, 0.9)" }}>
+    <AppBar sx={{ backgroundColor: "rgba(30, 30, 30, 0.9)" }}>
       <Container maxWidth="xl">
         <Toolbar
           sx={{
@@ -73,8 +78,18 @@ const StreamAppBar = () => {
           </Box>
           {pathname !== "/" && (
             <Box>
+              {pathname === "/streams" && (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  sx={{ mr: 2 }}
+                  onClick={() => navigate("/streams/new")}
+                >
+                  Create
+                </Button>
+              )}
               <Tooltip title="Log Out">
-                <IconButton sx={{ p: 0 }} onClick={handleMenuOpen}>
+                <IconButton onClick={handleMenuOpen}>
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
@@ -88,7 +103,7 @@ const StreamAppBar = () => {
                 }}
               >
                 <MenuItem>
-                  <Typography textAlign="center" onClick={() => logout()}>
+                  <Typography textAlign="center" onClick={handleLogOut}>
                     Log out
                   </Typography>
                 </MenuItem>

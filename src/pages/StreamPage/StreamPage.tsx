@@ -42,6 +42,7 @@ const StreamPage = () => {
         minHeight: "100vh",
         backgroundAttachment: "fixed",
         padding: 4,
+        mt: 8,
       }}
     >
       <BackgroundDimmer />

@@ -1,6 +1,14 @@
 import { Box, TextField, TextFieldProps, Typography } from "@mui/material";
 
-const InputText = ({ helperText, ...rest }: TextFieldProps) => {
+const InputText = ({ helperText, multiline, ...rest }: TextFieldProps) => {
+  const inputCommon = {
+    borderRadius: "50px",
+    color: "#fff",
+  };
+  const inputHeight = multiline ? { height: "150px" } : {};
+
+  const inputPropsMerged = { ...inputCommon, ...inputHeight };
+
   return (
     <Box mb={helperText !== "" ? 4 : 7}>
       <Box
@@ -13,8 +21,9 @@ const InputText = ({ helperText, ...rest }: TextFieldProps) => {
         <TextField
           autoComplete="off"
           fullWidth
+          multiline={multiline}
           color={helperText !== "" ? "error" : "primary"}
-          InputProps={{ sx: { borderRadius: "50px", color: "#fff" } }}
+          InputProps={{ sx: inputPropsMerged }}
           InputLabelProps={{ sx: { color: "white" } }}
           {...rest}
         />
