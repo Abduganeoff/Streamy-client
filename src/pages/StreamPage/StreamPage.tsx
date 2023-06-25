@@ -1,4 +1,6 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
 const api = axios.create({
@@ -6,6 +8,16 @@ const api = axios.create({
 });
 
 const StreamPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      // Redirect to login page if userId doesn't exist
+      navigate("/403");
+    }
+  }, []);
+
   const fetchStreams = (): Promise<any> =>
     api.get("/streams").then((response) => response.data);
 

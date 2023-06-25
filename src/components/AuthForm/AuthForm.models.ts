@@ -11,4 +11,6 @@ export interface AuthFormProps {
   form: Form;
   onHandleForm: (args: handleFormTypes) => void;
   handleCreateAccount: () => void;
+  serverError?: string[];
+  handleLogin: () => void;
 }

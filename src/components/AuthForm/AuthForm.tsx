@@ -1,6 +1,6 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 // mui components
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 // custom components
 import InputText from "../InputText/InputText";
 // models
@@ -12,10 +12,29 @@ const AuthForm: FC<AuthFormProps> = ({
   form,
   onHandleForm,
   handleCreateAccount,
+  serverError,
+  handleLogin,
 }) => {
   const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const { email, password, passwordConfirmation } = form;
   const { errorMessage, isAnyError } = useValidate(form);
+  const [isEmptyField, setIsEmptyField] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (isSignUp) {
+      if (email && password && passwordConfirmation) {
+        setIsEmptyField(false);
+      } else {
+        setIsEmptyField(true);
+      }
+    } else {
+      if (email && password) {
+        setIsEmptyField(false);
+      } else {
+        setIsEmptyField(true);
+      }
+    }
+  }, [form]);
 
   const handleChanges = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -29,6 +48,7 @@ const AuthForm: FC<AuthFormProps> = ({
       handleCreateAccount();
     } else {
       // login
+      handleLogin();
     }
   };
 
@@ -63,16 +83,17 @@ const AuthForm: FC<AuthFormProps> = ({
       )}
       <Button
         onClick={handleSubmitButton}
-        disabled={isAnyError}
+        disabled={isAnyError || isEmptyField}
         variant="contained"
         fullWidth
         size="large"
         sx={{
           borderRadius: "50px",
           my: 2,
-          backgroundColor: isAnyError
-            ? "rgba(250, 250, 250, 0.5) !important"
-            : undefined,
+          backgroundColor:
+            isAnyError || isEmptyField
+              ? "rgba(250, 250, 250, 0.5) !important"
+              : undefined,
         }}
       >
         Sign {isSignUp ? "up" : "in"}
@@ -87,6 +108,15 @@ const AuthForm: FC<AuthFormProps> = ({
           {isSignUp ? "Do you have an account?" : "Create an account?"}
         </Button>
       </Box>
+      {serverError && (
+        <Box mb={1}>
+          {serverError.map((err) => (
+            <Typography key={err} color="error">
+              {err}
+            </Typography>
+          ))}
+        </Box>
+      )}
     </Box>
   );
 };
