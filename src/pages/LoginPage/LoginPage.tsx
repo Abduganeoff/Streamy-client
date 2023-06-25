@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // service functions
 import { createAccountFn, loginFn } from "../../services/useAuth";
@@ -21,9 +21,17 @@ const INITIAL_FORM: Form = {
 };
 
 const LoginPage = () => {
-  const navigate = useNavigate();
   const [serverError, setServerError] = useState<string[] | undefined>();
   const [form, setForm] = useState<Form>(INITIAL_FORM);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userId = localStorage.getItem("userId");
+    if (userId) {
+      // Redirect to streams page if user is already logged in
+      navigate("/streams");
+    }
+  }, []);
 
   const { mutate: createAccount } = useMutation(createAccountFn, {
     onSuccess: (data) => {

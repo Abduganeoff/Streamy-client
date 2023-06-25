@@ -1,20 +1,17 @@
 import { lazy, Suspense } from "react";
-import {
-  Navigate,
-  Route,
-  BrowserRouter as Router,
-  Routes,
-} from "react-router-dom";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-
+import { Route, Routes, useLocation } from "react-router-dom";
+// custom components
+import StreamAppBar from "./components/AppBar/StreamAppBar";
 // Route components
 const StreamPage = lazy(() => import("./pages/StreamPage/StreamPage"));
 const LoginPage = lazy(() => import("./pages/LoginPage/LoginPage"));
 const NoAccessPage = lazy(() => import("./pages/NoAccessPage/NoAccessPage"));
 
 function App() {
+  const { pathname } = useLocation();
   return (
-    <Router>
+    <>
+      {pathname !== "/403" && <StreamAppBar />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
@@ -22,7 +19,7 @@ function App() {
           <Route path="/403" element={<NoAccessPage />} />
         </Routes>
       </Suspense>
-    </Router>
+    </>
   );
 }
 

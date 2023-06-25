@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import StreamCard from "../../components/StreamCard/StreamCard";
 import BackgroundDimmer from "../../components/BackgroundDimmer/BackgroundDimmer";
 // material components
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 
 const api = axios.create({
   baseURL: "http://localhost:5000",
@@ -39,14 +39,43 @@ const StreamPage = () => {
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        height: "100vh",
+        minHeight: "100vh",
+        backgroundAttachment: "fixed",
+        padding: 4,
       }}
     >
       <BackgroundDimmer />
-      <StreamCard
-        title="Stream"
-        shortDescription="This is my short description, if you like it, pleases"
-      />
+      <Grid
+        container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        columns={{ md: 3 }}
+        rowGap={5}
+        columnGap={2}
+        sx={{ zIndex: 1 }}
+      >
+        <StreamCard
+          title="Stream"
+          shortDescription="This is my short description, if you like it, pleases"
+        />
+        <StreamCard
+          title="Stream"
+          shortDescription="This is my short description, if you like it, pleases"
+        />
+        <StreamCard
+          title="Stream"
+          shortDescription="This is my short description, if you like it, pleases"
+        />
+        <StreamCard
+          title="Stream"
+          shortDescription="This is my short description, if you like it, pleases"
+        />
+        <StreamCard
+          title="Stream"
+          shortDescription="This is my short description, if you like it, pleases"
+        />
+      </Grid>
     </Box>
   );
 };

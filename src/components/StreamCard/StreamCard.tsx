@@ -28,10 +28,9 @@ const StreamCard: FC<StreamCardProps> = ({
   return (
     <Card
       sx={{
-        zIndex: 1,
         minWidth: 345,
         maxWidth: 345,
-        maxHeight: 368,
+        maxHeight: 390,
         backgroundColor: "rgba(20, 20, 20, 0.8)",
         color: "white",
         boxShadow: "0 0 8px 2px rgba(255, 255, 255, 0.5)",
@@ -41,10 +40,19 @@ const StreamCard: FC<StreamCardProps> = ({
       <CardActionArea onClick={() => navigate(`/streams/${2}`)}>
         <CardMedia sx={{ height: 220 }} image="/assets/streamy.jpeg" />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{ fontFamily: "monospace" }}
+          >
             {title}
           </Typography>
-          <Typography variant="body2" color="wheat">
+          <Typography
+            variant="body2"
+            color="wheat"
+            sx={{ fontFamily: "monospace" }}
+          >
             {shortDescription}
           </Typography>
         </CardContent>

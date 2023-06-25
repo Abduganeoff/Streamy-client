@@ -28,3 +28,11 @@ export const loginFn = async (form: Form) => {
   const data = await response.data;
   return data;
 };
+
+export const logoutFn = async () => {
+  const response = await axios("http://localhost:5000/signout", {
+    method: "GET",
+  });
+  const data = await response.data;
+  return data;
+};
