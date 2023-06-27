@@ -32,7 +32,7 @@ const StreamDetailPage = () => {
     return null;
   }
 
-  const { title, summary, description, upVotes, downVotes } = data;
+  const { title, summary, description, platform, upVotes, downVotes } = data;
 
   return (
     <Box
@@ -99,6 +99,13 @@ const StreamDetailPage = () => {
             color="secondary"
           >
             {title}
+          </Typography>
+          <Typography
+            sx={{ fontFamily: "monospace" }}
+            variant="h5"
+            color="info.main"
+          >
+            {`Platform: ${platform}`}
           </Typography>
           <Typography
             sx={{ fontFamily: "monospace" }}

@@ -84,102 +84,105 @@ const CreateStreamPage = () => {
   };
 
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      sx={{
-        backgroundImage: "url(/assets/img01.png)",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        height: "100vh",
-      }}
-    >
-      <BackgroundDimmer />
-      <Box sx={{ zIndex: 1 }}>
-        <Typography
-          sx={{ mb: 3, textAlign: "center" }}
-          variant="h4"
-          color="secondary.main"
-        >
-          Create Stream
-        </Typography>
-        <InputText
-          label="Stream Title"
-          name="title"
-          placeholder="Stream Title"
-          value={formData.title}
-          onChange={handleInputChange}
-          helperText={errorMessage.title}
-        />
-        <FormControl
-          sx={{
-            mb: 4,
-            minWidth: 120,
-            backgroundColor: "rgba(255, 255, 255, 0.15)",
-            width: " 100%",
-          }}
-        >
-          <InputLabel sx={{ color: "rgba(250, 250, 250, 0.8)" }}>
-            Platforms
-          </InputLabel>
-          <Select
-            open={open}
-            onClose={handleClose}
-            onOpen={handleOpen}
-            value={formData.platform}
-            label="Age"
-            onChange={handleChange}
+    <Box>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        sx={{
+          backgroundImage: "url(/assets/img01.png)",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "100vh",
+          position: "relative",
+        }}
+      >
+        <BackgroundDimmer />
+        <Box sx={{ zIndex: 1 }}>
+          <Typography
+            sx={{ mb: 3, textAlign: "center" }}
+            variant="h4"
+            color="secondary.main"
+          >
+            Create Stream
+          </Typography>
+          <InputText
+            label="Stream Title"
+            name="title"
+            placeholder="Stream Title"
+            value={formData.title}
+            onChange={handleInputChange}
+            helperText={errorMessage.title}
+          />
+          <FormControl
             sx={{
-              color: "#fff",
-              "& .MuiSelect-icon": {
-                color: "rgba(250, 250, 250, 0.54)",
-              },
+              mb: 4,
+              minWidth: 120,
+              backgroundColor: "rgba(255, 255, 255, 0.15)",
+              width: " 100%",
             }}
           >
-            {OPTIONS.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <InputText
-          label="Summary"
-          name="summary"
-          placeholder="Summary"
-          value={formData.summary}
-          onChange={handleInputChange}
-          helperText={errorMessage.summary}
-        />
-        <InputText
-          label="Description"
-          name="description"
-          placeholder="Description"
-          multiline
-          maxRows={4}
-          value={formData.description}
-          onChange={handleInputChange}
-          helperText={errorMessage.description}
-        />
-        <Button
-          sx={{
-            borderRadius: "50px",
-            backgroundColor:
-              isAnyError || isEmptyField
-                ? "rgba(250, 250, 250, 0.5) !important"
-                : undefined,
-          }}
-          variant="contained"
-          fullWidth
-          size="large"
-          color="secondary"
-          disabled={isAnyError || isEmptyField}
-          onClick={handelCreateStream}
-        >
-          Create Stream
-        </Button>
+            <InputLabel sx={{ color: "rgba(250, 250, 250, 0.8)" }}>
+              Platforms
+            </InputLabel>
+            <Select
+              open={open}
+              onClose={handleClose}
+              onOpen={handleOpen}
+              value={formData.platform}
+              label="Age"
+              onChange={handleChange}
+              sx={{
+                color: "#fff",
+                "& .MuiSelect-icon": {
+                  color: "rgba(250, 250, 250, 0.54)",
+                },
+              }}
+            >
+              {OPTIONS.map((option) => (
+                <MenuItem key={option} value={option}>
+                  {option}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <InputText
+            label="Summary"
+            name="summary"
+            placeholder="Summary"
+            value={formData.summary}
+            onChange={handleInputChange}
+            helperText={errorMessage.summary}
+          />
+          <InputText
+            label="Description"
+            name="description"
+            placeholder="Description"
+            multiline
+            maxRows={4}
+            value={formData.description}
+            onChange={handleInputChange}
+            helperText={errorMessage.description}
+          />
+          <Button
+            sx={{
+              borderRadius: "50px",
+              backgroundColor:
+                isAnyError || isEmptyField
+                  ? "rgba(250, 250, 250, 0.5) !important"
+                  : undefined,
+            }}
+            variant="contained"
+            fullWidth
+            size="large"
+            color="secondary"
+            disabled={isAnyError || isEmptyField}
+            onClick={handelCreateStream}
+          >
+            Create Stream
+          </Button>
+        </Box>
       </Box>
     </Box>
   );
